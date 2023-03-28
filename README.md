@@ -1,0 +1,2 @@
+# Gomoku
+Canvas for Gomoku
