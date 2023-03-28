@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gomoku</title>
+    <style>
+        .row {
+            margin: 0 auto;
+            display: block;
+            /* justify-content: center;
+             */
+
+        }
+
+        canvas {
+            border: 1px solid black;
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.createElement('canvas');
+        const row = document.getElementsByClassName('row');
+        canvas.width = 800;
+        canvas.height = 800;
+        const ww = canvas.width;
+        const wh = canvas.height;
+        row[0].append(canvas);
+        const ctx = canvas.getContext('2d');
+
+
+        //格線
+        var span = 50;
+        function draw() {
+            ctx.fillStyle = 'green';
+            ctx.fillRect(0, 0, ww, wh);
+
+            ctx.beginPath();
+            // for (var i = span; i <= ww - span; i += span) {
+            //     ctx.moveTo(i, span);
+            //     ctx.lineTo(i, wh - span);
+            // }
+            // for (var i = span; i <= wh - span; i += span) {
+            //     ctx.moveTo(span, i);
+            //     ctx.lineTo(ww - span, i);
+            // }
+            for (var i = 1; i < 16; i++) {
+                //橫線
+                ctx.moveTo(span, span * i);
+                ctx.lineTo(ww - span, span * i);
+                ctx.stroke();
+                //縱線
+                ctx.moveTo(span * i, span);
+                ctx.lineTo(span * i, wh - span);
+                ctx.stroke();
+            }
+            ctx.strokeStyle = 'black';
+            // ctx.closePath();
+        }
+        draw();
+
+
+        //4.點擊在棋盤裡面
+        canvas.addEventListener('click', function (e) {
+            //看offsetX/offsetY
+            // console.log(e);
+            let { offsetX, offsetY } = event;
+            let x = Math.floor(offsetX / 50) * 50;
+            let y = Math.floor(offsetY / 50) * 50;
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, 2 * Math.PI);
+            ctx.fillStyle = 'black';
+            ctx.fill();
+            ctx.closePath();
+        })
+    </script>
+</body>
+
+</html>
